@@ -13,6 +13,8 @@ O projeto escolhido foi um mensageiro que busca simular os aplicativos de mensag
 * Receber mensagem; 
 * Enviar mensagem para todos os membros. 
 
+Linguagem: Python 
+
 ### Requisitos
 
 - Python 3 instalado no computador: [Windows e Mac] https://www.python.org/downloads/release/python-3105/ [Linux] Instalação via **terminal**, por meio do comando: sudo apt install python3
