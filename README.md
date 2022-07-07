@@ -22,20 +22,13 @@ Linguagem: Python
 
 ### Instruções: 
 
-[Usuários Windows]
-
 1. Baixe os arquivos desse repositório e os extraia em uma pasta de sua preferência;
-2. Abra o CMD;
+2. Abra o CMD [Windows] ou terminal [Linux];
 3. Navegue até o diretório o qual você extraiu os arquivos;
-4. Navegue até a pasta 'src' e liste os arquivos dela - você deve ver os arquivos client.py e server.py; 
+4. Navegue até a pasta 'Computer-Networks-main' e selecione a pasta 'src' - você deve ver os arquivos client.py e server.py; 
 5. Execute o servidor por meio do comando: python '.\server.py'.  A mensagem 'Socket is running' será exibida. 
-6. Repita os passos 2 - 4. [Você deve abrir outra guia do CMD]
+6. Repita os passos 2 - 4. [Você deve abrir outra guia do CMD ou terminal]
 7. Execute o cliente por meio do comando: python '.\client.py'.  A mensagem 'Please, type your name: ' será exibida, então digite o seu nome e aperte enter. Em seguida, pode começar a digitar as mensagens. 
 8. Para inserir outro usuário, basta seguir os passos 2 - 7
 
-Para encerrar, basta fechar as janelas do CMD. 
-
-[Usuários Linux - em construção volte mais tarde]
-
-
-
+Para encerrar, basta fechar as janelas do CMD ou terminal. 
