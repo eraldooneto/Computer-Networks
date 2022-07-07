@@ -11,7 +11,7 @@ Esse repositório é dedicado para o projeto da disciplina **Redes de Computador
 O projeto escolhido foi um mensageiro que busca simular os aplicativos de mensagens atuais, como o **WhatsApp** e **Telegram**,  utilizando o terminal para enviar e receber mensagens. Logo, é possível: 
 * Enviar mensagem;
 * Receber mensagem; 
-* Enviar mensagem para todos os membros. 
+* Vizualizar o histórico de mensagens para cada novo usuário que entrar. 
 
 Linguagem: Python 
 
