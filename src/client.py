@@ -1,37 +1,44 @@
 import socket
 import threading
-import time 
+import time
 
-PORT = 5050
-SERVER = "192.168.0.109"
-ADRESS = (SERVER, PORT)
+# Connects a client
+PORT = 8080
+SERVER = socket.gethostbyname(socket.gethostname())
+ADDR = (SERVER, PORT)
 
-# Client connection to server address
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect(ADRESS)
+client.connect(ADDR)
 
+# Treats the message to send on the format 'user: message'
 def holdMessages():
     while(True):
         msg = client.recv(2048).decode()
         separatedMessage = msg.split("=")
         print(separatedMessage[1] + ": " + separatedMessage[2])
 
+# Client send method 
 def send(message):
-    client.send(message.encode("utf-8"))
+    client.send(message.encode('utf-8'))
 
+# Takes the message from user and calls for the client method to send 
 def sendMessage():
-    message = input()
-    send("msg=" + message)
+    while(True):
+        message = input("> ")
+        send("msg=" + message)
 
-def sendAuthor():
+# Takes the name from user and sends via 
+def sendName():
     name = input("Please, type your name: ")
     send("name=" + name)
 
 def beginSending():
-    sendAuthor()
+    sendName()
     sendMessage()
 
 def begin():
+    
+    # Call two process: while a message comes in first process the other process is sending 
     firstThread = threading.Thread(target=holdMessages)
     secondThread = threading.Thread(target=beginSending)
     
