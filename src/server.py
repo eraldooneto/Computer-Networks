@@ -1,82 +1,86 @@
 import socket
 import threading
-import time 
+import time
 
 # Take the IP Address 
 SERVER_IP = socket.gethostbyname(socket.gethostname())
-PORT = 5050
-ADRESS = (SERVER_IP, PORT)
+PORT = 8080
+ADDR = (SERVER_IP, PORT)
 
 # Create a server 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server.bind(ADRESS)
+server.bind(ADDR)
 
 connections = []
 messages = []
 
-# Send a message just for one person 
+# Send a message just for one person
 def sendPersonalMessage(connection):
-    print(f"Sending messages to {connection['address']}")
-
+    
+    print(f"Sending a message to {connection['addr']}")
+    
     for i in range(connection['last'], len(messages)):
         messageToSend = "msg=" + messages[i]
-        connection['connection'].send(messageToSend.encode())
+        
+        connection['conn'].send(messageToSend.encode())
         connection['last'] = i + 1
+        
         time.sleep(0.2)
 
-# Send a message for everyone
-def sendGroupMessage():
+# When a new user connects, recieves all the past messages 
+def sendMessageforAll():
     global connections
-
+    
     for connection in connections:
         sendPersonalMessage(connection)
 
-def holdClients(connection, address):
+# Get the client's message 
+def holdClients(conn, addr):
     global connections
     global messages
+    
+    print(f"A new user has been connected at address {addr}")
+    
     name = False
 
-    print(f"A new user has been connected via address {address}.")
-
-    # Get the client's message 
+    # Checks if it's really a message and separates the message in name and message 
     while(True):
-        msg = connection.recv(2048).decode("utf-8")
-
-        # Check if it's really a message and separates the message in name and message 
-        if(msg): 
-            if(msg.startwith("name=")):
+        msg = conn.recv(2048).decode("utf-8")
+        
+        if(msg):
+            if(msg.startswith("name=")):
                 separatedMessage = msg.split("=")
                 name = separatedMessage[1]
                 
                 connectionMap = {
-                                "connection": connection, 
-                                "address": address,
-                                "name": name,
-                                "last": 0
+                    "conn": conn,
+                    "addr": addr,
+                    "name": name,
+                    "last": 0
                 }
-
+                
                 connections.append(connectionMap)
                 sendPersonalMessage(connectionMap)
-        
-        elif(msg.startwith("msg=")):
-            separatedMessage = msg.split("=")
-    
-            # Check this variable later
-            message = name + "=" + separatedMessage[1]
-            messages.append(message)
-            sendGroupMessage()
+            
 
+            elif(msg.startswith("msg=")):
+                separatedMessage = msg.split("=")
+                
+                message = name + "=" + separatedMessage[1]
+                messages.append(message)
+                
+                sendMessageforAll()
 
 # Socket is listening the client - It means that a socket accepts a message from client 
 def begin():
-    print("[Beginning] Initializing Socket")
+    print("Socket is running")
+    
     server.listen()
-
-    while(True): 
-
-        # A new person get in conversation so a process is created via thread
-        connection, address = server.accept()
-        thread = threading.Thread(target=holdClients, args=(connection, address))
+    
+    # A new person get in conversation so a process is created via thread
+    while(True):
+        conn, addr = server.accept()
+        thread = threading.Thread(target=holdClients, args=(conn, addr))
         thread.start()
 
 begin()
