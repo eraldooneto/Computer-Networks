@@ -2,6 +2,8 @@
 
 Esse repositório é dedicado para o projeto da disciplina **Redes de Computadores** do semestre 2021.2. 
 
+***Nota sobre o relatório:*** Para acessar os links dispostos no relatório é necessário fazer o download do mesmo, simplesmente clicando em "Download".
+
 **Alunos:**  
 - José Eraldo dos Santos Neto [Ciência da Computação] 👨🏻‍💻
 - Élisson Souza [Engenharia da Computação] 👨🏻‍💻
